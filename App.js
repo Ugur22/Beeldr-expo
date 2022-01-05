@@ -1,71 +1,51 @@
 import React from "react";
 import {
-  Text,
-  Link,
-  HStack,
-  Center,
-  Heading,
-  Switch,
-  useColorMode,
   NativeBaseProvider,
   extendTheme,
-  VStack,
-  Code,
 } from "native-base";
-import NativeBaseIcon from "./components/NativeBaseIcon";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './screens/HomeScreen'
+import CountriesScreen from "./screens/CountriesScreen";
+import AboutScreen from "./screens/AboutScreen";
+import SettingsScreen from "./screens/SettingsScreen";
+import CountryScreen from "./screens/CountryScreen";
 
-// Define the config
-const config = {
+const theme = extendTheme({
   useSystemColorMode: false,
   initialColorMode: "dark",
-};
+  fontConfig: {
+    Courier: {
+      400: {
+        normal: 'Courier New',
+      },
+    },
+  },
 
-// extend the theme
-export const theme = extendTheme({ config });
+  // Make sure values below matches any of the keys in `fontConfig`
+  fonts: {
+    heading: 'Courier',
+    body: 'Courier',
+    mono: 'Courier',
+  },
+});
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <Center
-        _dark={{ bg: "blueGray.900" }}
-        _light={{ bg: "blueGray.50" }}
-        px={4}
-        flex={1}
-      >
-        <VStack space={5} alignItems="center">
-          <NativeBaseIcon />
-          <Heading size="lg">Welcome to NativeBase</Heading>
-          <HStack space={2} alignItems="center">
-            <Text>Edit</Text>
-            <Code>App.js</Code>
-            <Text>and save to reload.</Text>
-          </HStack>
-          <Link href="https://docs.nativebase.io" isExternal>
-            <Text color="primary.500" underline fontSize={"xl"}>
-              Learn NativeBase
-            </Text>
-          </Link>
-          <ToggleDarkMode />
-        </VStack>
-      </Center>
+    <NativeBaseProvider theme={theme}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="CovidTracker" component={HomeScreen} />
+          <Stack.Screen name="Countries" component={CountriesScreen} />
+          <Stack.Screen name="About" component={AboutScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="Country" component={CountryScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </NativeBaseProvider>
   );
 }
 
-// Color Switch Component
-function ToggleDarkMode() {
-  const { colorMode, toggleColorMode } = useColorMode();
-  return (
-    <HStack space={2} alignItems="center">
-      <Text>Dark</Text>
-      <Switch
-        isChecked={colorMode === "light" ? true : false}
-        onToggle={toggleColorMode}
-        aria-label={
-          colorMode === "light" ? "switch to dark mode" : "switch to light mode"
-        }
-      />
-      <Text>Light</Text>
-    </HStack>
-  );
-}
+
