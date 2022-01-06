@@ -35,7 +35,7 @@ npm install --global expo-cli
     * Make sure you have an `Android emulator` installed and running
     * Run `npm run android` in your terminal
 
-    [more info on installing and setting up Vue-Native](https://vue-native.io/docs/installation.html)
+    [more info on installing and setting up React-Native](https://reactnative.dev/docs/environment-setup)
 
 ### debug in production
 ```
