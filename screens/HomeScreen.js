@@ -15,12 +15,8 @@ import NativeBaseIcon from "../components/NativeBaseIcon";
 const HomeScreen = ({ navigation }) => {
 
     return (
-        <Center h="100%" w="100%"
-            _dark={{ bg: "darkBlue.900" }}
-            _light={{ bg: "#FFF" }}
-        >
+        <Center h="100%" w="100%" _dark={{ bg: "darkBlue.900" }} _light={{ bg: "#FFF" }}>
             <VStack space={5} alignItems="center">
-
                 <Heading textAlign="center"> Home </Heading>
                 <CustomButton onPress={() => navigation.navigate('Countries')} title="Countries" />
                 <CustomButton onPress={() => navigation.navigate('About')} title="About app" />
@@ -28,7 +24,7 @@ const HomeScreen = ({ navigation }) => {
                 {/* <ToggleDarkMode /> */}
             </VStack>
             <VStack mt="10" alignItems="center">
-            <Image size="xl" source={require('../assets/img/covid.png')} alt="CovidTracker logo" />
+                <Image size="xl" source={require('../assets/img/covid.png')} alt="CovidTracker logo" />
             </VStack>
         </Center>
     );

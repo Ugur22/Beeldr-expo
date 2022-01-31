@@ -19,7 +19,7 @@ import CountryFlag from "react-native-country-flag";
 const CountriesScreen = ({ navigation }) => {
 
   let [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -27,10 +27,13 @@ const CountriesScreen = ({ navigation }) => {
 
 
   const fetchData = () => {
+    setLoading(true);
     fetch(`https://api.covid19api.com/summary`)
       .then(response => response.json())
-      .then(json => setData(json))
-      setLoading(false);
+      .then((res) => {
+        setData(res)
+        setLoading(false);
+      });
   }
 
   const GotoPage = (countryName, flag) => {

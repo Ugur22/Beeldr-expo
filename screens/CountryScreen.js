@@ -12,7 +12,7 @@ const CountryScreen = ({ route, navigation }) => {
   let [dataCountries, setCountry] = useState([]);
   let country = route.params.countryName;
   let flag = route.params.flag;
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -21,10 +21,13 @@ const CountryScreen = ({ route, navigation }) => {
 
 
   const fetchData = () => {
+    setLoading(true);
     fetch(`https://api.covid19api.com/total/country/${country}`)
       .then(response => response.json())
-      .then(json => setCountry(json))
-    setLoading(false);
+      .then((res) => {
+        setCountry(res)
+        setLoading(false);
+      });
   }
 
 
@@ -36,25 +39,12 @@ const CountryScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {!loading && (
-        <Box
-          flex={1}
-          pt="3"
-          _dark={{ bg: "darkBlue.900" }}
-          _light={{ bg: "#FFF" }}
-          px={4}
-          flex={1}
-          w={{
-            base: "100%",
-            md: "25%",
-          }}
-        >      <VStack space={5} alignItems="center">
+        <Box flex={1} pt="3" _dark={{ bg: "darkBlue.900" }} _light={{ bg: "#FFF" }} px={4} flex={1} w={{base: "100%", md: "25%", }}>
+          <VStack space={5} alignItems="center">
             <Text>{country}</Text>
             <Text>{latest_confirmed}</Text>
-            <CountryFlag isoCode={flag} size={10} style={{
-              borderRadius: 100, height: 80, width: 80
-            }} />
+            <CountryFlag isoCode={flag} size={10} style={{ borderRadius: 100, height: 80, width: 80 }} />
           </VStack>
-
         </Box>
       )}
       {loading && (
