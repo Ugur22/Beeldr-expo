@@ -41,7 +41,7 @@ export default function App() {
           <Stack.Screen name="Countries" component={CountriesScreen} />
           <Stack.Screen name="About" component={AboutScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
-          <Stack.Screen name="Country" component={CountryScreen} />
+          <Stack.Screen name="Country"   options={({ route }) => ({ title: route.params.countryName })}component={CountryScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>

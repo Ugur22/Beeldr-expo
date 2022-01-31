@@ -50,8 +50,8 @@ const CountriesScreen = ({ navigation }) => {
         <Box
           flex={1}
           pt="3"
-          _dark={{ bg: "darkBlue.900" }}
-          _light={{ bg: "#FFF" }}
+          _dark={{ bg: "#4B4F72" }}
+          _light={{ bg: "white" }}
           px={4}
           flex={1}
           w={{
@@ -98,8 +98,8 @@ const CountriesScreen = ({ navigation }) => {
                       </Text>
                     </VStack>
                     <Spacer />
-                    <ArrowForwardIcon size="sm" mt="0.5" color="#4B4F72" _dark={{
-                      color: "#4B4F72",
+                    <ArrowForwardIcon size="sm" mt="0.5" color="#fff" _dark={{
+                      color: "#fff",
                     }}
                       alignSelf="center" />
 

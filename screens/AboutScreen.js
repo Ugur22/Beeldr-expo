@@ -14,8 +14,8 @@ const AboutScreen = () => {
 
   return (
     <Center h="100%" w="100%"
-      _dark={{ bg: "darkBlue.900" }}
-      _light={{ bg: "#FFF" }}
+      _dark={{ bg: "#4B4F72" }}
+      _light={{ bg: "white" }}
       px={4}
       flex={1}
     >
