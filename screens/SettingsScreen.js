@@ -21,7 +21,7 @@ const SettingsScreen = () => {
       <Box
         flex={1}
         pt="3"
-        _dark={{ bg: "#4B4F72" }}
+        _dark={{ bg: "DeepBlue" }}
         _light={{ bg: "white" }}
         px={4}
         flex={1}

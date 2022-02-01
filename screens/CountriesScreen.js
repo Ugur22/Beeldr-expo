@@ -12,7 +12,7 @@ import {
   ArrowForwardIcon,
   Spacer
 } from "native-base";
-import { TouchableOpacity, SafeAreaView,View,Image } from "react-native";
+import { TouchableOpacity, SafeAreaView, View, Image } from "react-native";
 import React, { useState, useEffect } from 'react';
 import CountryFlag from "react-native-country-flag";
 
@@ -23,6 +23,7 @@ const CountriesScreen = ({ navigation }) => {
 
   useEffect(() => {
     fetchData();
+
   }, [])
 
 
@@ -31,7 +32,8 @@ const CountriesScreen = ({ navigation }) => {
     fetch(`https://api.covid19api.com/summary`)
       .then(response => response.json())
       .then((res) => {
-        setData(res)
+        let filterEvenResults = res.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
+        setData(filterEvenResults);
         setLoading(false);
       });
   }
@@ -50,7 +52,7 @@ const CountriesScreen = ({ navigation }) => {
         <Box
           flex={1}
           pt="3"
-          _dark={{ bg: "#4B4F72" }}
+          _dark={{ bg: "DeepBlue" }}
           _light={{ bg: "white" }}
           px={4}
           flex={1}
@@ -60,7 +62,7 @@ const CountriesScreen = ({ navigation }) => {
           }}
         >
           <FlatList
-            data={data.Countries}
+            data={data}
             renderItem={({ item }) => (
               <Box
                 borderBottomWidth="1"
@@ -98,8 +100,8 @@ const CountriesScreen = ({ navigation }) => {
                       </Text>
                     </VStack>
                     <Spacer />
-                    <ArrowForwardIcon size="sm" mt="0.5" color="#fff" _dark={{
-                      color: "#fff",
+                    <ArrowForwardIcon size="sm" mt="0.5" color="DeepBlue" _dark={{
+                      color: "white",
                     }}
                       alignSelf="center" />
 

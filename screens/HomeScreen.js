@@ -15,7 +15,7 @@ import NativeBaseIcon from "../components/NativeBaseIcon";
 const HomeScreen = ({ navigation }) => {
 
     return (
-        <Center h="100%" w="100%" _dark={{ bg: "#4B4F72" }} _light={{ bg: "white" }}>
+        <Center h="100%" w="100%" _dark={{ bg: "DeepBlue" }} _light={{ bg: "white" }}>
             <VStack space={5} alignItems="center">
                 {/* <Heading textAlign="center"> Home </Heading> */}
                 <CustomButton onPress={() => navigation.navigate('Countries')} title="Countries" />

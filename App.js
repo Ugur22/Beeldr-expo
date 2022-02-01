@@ -14,6 +14,13 @@ import CountryScreen from "./screens/CountryScreen";
 const theme = extendTheme({
   useSystemColorMode: false,
   initialColorMode: "dark",
+  colors: {
+    // Redefinig only one shade, rest of the color will remain same.
+      covidRed: '#FF4757',
+      covidOrange: '#EE5A24',
+      covidGreen: '#7BED9F',
+      DeepBlue: '#4B4F72',
+  },
   fontConfig: {
     Courier: {
       400: {

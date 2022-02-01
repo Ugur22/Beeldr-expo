@@ -52,36 +52,33 @@ const CountryScreen = ({ route, navigation }) => {
   let latest_deaths = Math.max(...amount_death);
   const screenWidth = Dimensions.get("window").width;
 
- let  dataCases = dataCountries.map(function (country) {
+  let dataCases = dataCountries.map(function (country) {
     return {
       y: country.Active,
-      x: country.Date.slice(0,10)
+      x: country.Date.slice(0, 10)
     };
   });
 
 
-
   dataCases = dataCases.filter(item => (item.y !== 0));
 
-   dataCases = dataCases.slice(1).slice(-100)
-
-
+  dataCases = dataCases.slice(1).slice(-100)
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {!loading && (
-        <Box flex={1} pt="0" _dark={{ bg: "#4B4F72" }} _light={{ bg: "#4B4F72" }} w={{ base: "100%" }} >
+        <Box flex={1} pt="0" _dark={{ bg: "DeepBlue" }} _light={{ bg: "DeepBlue" }} w={{ base: "100%" }} >
           <VStack space={0} alignItems="center">
             <HStack space={2} alignItems="center" paddingTop={2} paddingBottom={2} >
               <CountryFlag isoCode={flag} size={10} style={{ borderRadius: 100, height: 50, width: 50 }} />
             </HStack>
             <Heading size="md" color="white">Total cases: {latest_confirmed.toLocaleString()}</Heading>
-            <View style={styles.container} top={-90}>
-            <VictoryGroup
-             minDomain={{ y: 0 }}
+            <View style={styles.container} top={-30}>
+              <VictoryGroup
+                minDomain={{ y: 0 }}
                 width={500} height={300}
               >
-  
+
                 <VictoryLine
                   interpolation="natural"
                   data={dataCases}
@@ -97,7 +94,7 @@ const CountryScreen = ({ route, navigation }) => {
             <Heading size="sm" fontWeight="bold" color="#000" >All cases</Heading>
             <VictoryChart width={screenWidth} height={200} domainPadding={{ x: 15 }} minDomain={{ y: 0 }}>
               <VictoryStack
-                colorScale={["tomato", "orange", "gold"]}
+                colorScale={["#FF4757", "#EE5A24", "#7BED9F"]}
               >
                 <VictoryBar style={{ data: { width: 30 } }}
                   data={[{ x: "a", y: 2 }, { x: "b", y: 3 }, { x: "c", y: 5 }, { x: "d", y: 5 }, { x: "e", y: 5 }]}
