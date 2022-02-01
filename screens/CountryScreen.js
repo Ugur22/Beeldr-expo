@@ -8,7 +8,7 @@ import {
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Image, Dimensions, StyleSheet } from "react-native";
 import CountryFlag from "react-native-country-flag";
-import { VictoryStack, VictoryBar, VictoryChart, VictoryGroup, VictoryTheme, VictoryLine } from "victory-native";
+import { VictoryStack, VictoryBar, VictoryChart, VictoryGroup, VictoryLabel,VictoryZoomContainer, VictoryLine } from "victory-native";
 
 const CountryScreen = ({ route, navigation }) => {
 
@@ -41,6 +41,29 @@ const CountryScreen = ({ route, navigation }) => {
       });
   }
 
+  let filterOutliers = (someArray) => {
+
+    if (someArray.length < 4)
+      return someArray;
+
+    let values, q1, q3, iqr, maxValue, minValue;
+
+    values = someArray.slice().sort((a, b) => a - b);//copy array fast and sort
+
+    if ((values.length / 4) % 1 === 0) {//find quartiles
+      q1 = 1 / 2 * (values[(values.length / 4)] + values[(values.length / 4) + 1]);
+      q3 = 1 / 2 * (values[(values.length * (3 / 4))] + values[(values.length * (3 / 4)) + 1]);
+    } else {
+      q1 = values[Math.floor(values.length / 4 + 1)];
+      q3 = values[Math.ceil(values.length * (3 / 4) + 1)];
+    }
+
+    iqr = q3 - q1;
+    maxValue = q3 + iqr * 1.5;
+    minValue = q1 - iqr * 1.5;
+
+    return values.filter((x) => (x >= minValue) && (x <= maxValue));
+  }
 
   const amount_confirmed = dataCountries.map((a) => a.Confirmed);
   const amount_active = dataCountries.map((a) => a.Active);
@@ -60,9 +83,14 @@ const CountryScreen = ({ route, navigation }) => {
   });
 
 
+
   dataCases = dataCases.filter(item => (item.y !== 0));
 
-  dataCases = dataCases.slice(1).slice(-100)
+  dataCases = filterOutliers(amount_confirmed);
+
+  dataCases = dataCases.slice(-300)
+
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -74,7 +102,7 @@ const CountryScreen = ({ route, navigation }) => {
             </HStack>
             <Heading size="md" color="white">Total cases: {latest_confirmed.toLocaleString()}</Heading>
             <View style={styles.container} top={-30}>
-              <VictoryGroup
+              <VictoryGroup containerComponent={<VictoryZoomContainer/>}
                 minDomain={{ y: 0 }}
                 width={500} height={300}
               >
@@ -82,6 +110,8 @@ const CountryScreen = ({ route, navigation }) => {
                 <VictoryLine
                   interpolation="natural"
                   data={dataCases}
+                  // labels={(d) => `${d.y}`}
+                  labelComponent={<VictoryLabel dy={20}/>}
                   style={{
                     data: { stroke: "#fff" }, strokeLinecap: "round",
                     parent: { border: "1px solid #fff" }
@@ -90,7 +120,7 @@ const CountryScreen = ({ route, navigation }) => {
               </VictoryGroup>
             </View>
           </VStack>
-          <Box borderTopRadius={20} top={-180} padding={4} height={400} _dark={{ bg: "white" }} _light={{ bg: "white" }} >
+          <Box borderTopRadius={20} top={-140} padding={4} height={400} _dark={{ bg: "white" }} _light={{ bg: "white" }} >
             <Heading size="sm" fontWeight="bold" color="#000" >All cases</Heading>
             <VictoryChart width={screenWidth} height={200} domainPadding={{ x: 15 }} minDomain={{ y: 0 }}>
               <VictoryStack
