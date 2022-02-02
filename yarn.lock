@@ -782,7 +782,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.16.7"
 
-"@babel/plugin-transform-object-assign@^7.0.0":
+"@babel/plugin-transform-object-assign@^7.0.0", "@babel/plugin-transform-object-assign@^7.10.4":
   "integrity" "sha512-R8mawvm3x0COTJtveuoqZIjNypn2FjfvXZr4pSQ8VhEFBuQGBz4XhHasZtHXjgXU4XptZ4HtGof3NoYc93ZH9Q=="
   "resolved" "https://registry.npmjs.org/@babel/plugin-transform-object-assign/-/plugin-transform-object-assign-7.16.7.tgz"
   "version" "7.16.7"
@@ -1159,6 +1159,13 @@
   dependencies:
     "exec-sh" "^0.3.2"
     "minimist" "^1.2.0"
+
+"@egjs/hammerjs@^2.0.17":
+  "integrity" "sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A=="
+  "resolved" "https://registry.npmjs.org/@egjs/hammerjs/-/hammerjs-2.0.17.tgz"
+  "version" "2.0.17"
+  dependencies:
+    "@types/hammerjs" "^2.0.36"
 
 "@emotion/is-prop-valid@^0.8.8":
   "integrity" "sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA=="
@@ -1557,6 +1564,16 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
+
+"@rainbow-me/animated-charts@^1.0.0-alpha.6":
+  "integrity" "sha512-mJMKiHLxuU5FPIn/WR+klzA4Ug68zI+eCaqiBjd+s1QGfO2EF/za1PgN0GtCmm5iFDqdnE8FEoRk8RAI5p9WtQ=="
+  "resolved" "https://registry.npmjs.org/@rainbow-me/animated-charts/-/animated-charts-1.0.0-alpha.6.tgz"
+  "version" "1.0.0-alpha.6"
+  dependencies:
+    "react-native-gesture-handler" "^1.7.0"
+    "react-native-haptic-feedback" "^1.10.0"
+    "react-native-reanimated" "^2.0.0-alpha.5"
+    "react-native-svg" "^12.1.0"
 
 "@react-aria/checkbox@^3.2.1":
   "integrity" "sha512-bLNdVefKGFA2+QT84htWHYUpxLqA5r3L4q6ilBLOzcRiKpgQM2OW2bQGLN6Zw26MKjmTzEMrR2Db+a/O5e1fUQ=="
@@ -2473,6 +2490,11 @@
   dependencies:
     "@styled-system/core" "^5.1.2"
     "@styled-system/css" "^5.1.5"
+
+"@types/hammerjs@^2.0.36":
+  "integrity" "sha512-ewXv/ceBaJprikMcxCmWU1FKyMAQ2X7a9Gtmzw8fcg2kIePI1crERDM818W+XYrxqdBBOdlf2rm137bU+BltCA=="
+  "resolved" "https://registry.npmjs.org/@types/hammerjs/-/hammerjs-2.0.41.tgz"
+  "version" "2.0.41"
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   "integrity" "sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g=="
@@ -3421,6 +3443,13 @@
     "loose-envify" "^1.3.1"
     "object-assign" "^4.1.1"
 
+"cross-fetch@^3.0.4":
+  "integrity" "sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw=="
+  "resolved" "https://registry.npmjs.org/cross-fetch/-/cross-fetch-3.1.5.tgz"
+  "version" "3.1.5"
+  dependencies:
+    "node-fetch" "2.6.7"
+
 "cross-spawn@^5.1.0":
   "integrity" "sha1-6L0O/uWPz/b4+UUQoKVUu/ojVEk="
   "resolved" "https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz"
@@ -3749,7 +3778,7 @@
   "resolved" "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz"
   "version" "1.0.2"
 
-"encoding@^0.1.11":
+"encoding@^0.1.0", "encoding@^0.1.11":
   "integrity" "sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A=="
   "resolved" "https://registry.npmjs.org/encoding/-/encoding-0.1.13.tgz"
   "version" "0.1.13"
@@ -4134,6 +4163,19 @@
     "setimmediate" "^1.0.5"
     "ua-parser-js" "^0.7.18"
 
+"fbjs@^3.0.0":
+  "integrity" "sha512-qv+boqYndjElAJHNN3NoM8XuwQZ1j2m3kEvTgdle8IDjr6oUbkEpvABWtj/rQl3vq4ew7dnElBxL4YJAwTVqQQ=="
+  "resolved" "https://registry.npmjs.org/fbjs/-/fbjs-3.0.2.tgz"
+  "version" "3.0.2"
+  dependencies:
+    "cross-fetch" "^3.0.4"
+    "fbjs-css-vars" "^1.0.0"
+    "loose-envify" "^1.0.0"
+    "object-assign" "^4.1.0"
+    "promise" "^7.1.1"
+    "setimmediate" "^1.0.5"
+    "ua-parser-js" "^0.7.30"
+
 "figures@^2.0.0":
   "integrity" "sha1-OrGi0qYsi/tDGgyUy3l6L84nyWI="
   "resolved" "https://registry.npmjs.org/figures/-/figures-2.0.0.tgz"
@@ -4458,7 +4500,7 @@
   dependencies:
     "source-map" "^0.7.3"
 
-"hoist-non-react-statics@^3.0.0":
+"hoist-non-react-statics@^3.0.0", "hoist-non-react-statics@^3.3.0":
   "integrity" "sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw=="
   "resolved" "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
   "version" "3.3.2"
@@ -5543,6 +5585,16 @@
   dependencies:
     "minimist" "^1.2.5"
 
+"mockdate@^3.0.2":
+  "integrity" "sha512-iniQP4rj1FhBdBYS/+eQv7j1tadJ9lJtdzgOpvsOHng/GbcDh2Fhdeq+ZRldrPYdXvCyfFUmFeEwEGXZB5I/AQ=="
+  "resolved" "https://registry.npmjs.org/mockdate/-/mockdate-3.0.5.tgz"
+  "version" "3.0.5"
+
+"moment@^2.29.1":
+  "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
+  "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
+  "version" "2.29.1"
+
 "ms@2.0.0":
   "integrity" "sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g="
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
@@ -5658,10 +5710,10 @@
     "encoding" "^0.1.11"
     "is-stream" "^1.0.1"
 
-"node-fetch@^2.2.0", "node-fetch@^2.6.0":
-  "integrity" "sha512-Z8/6vRlTUChSdIgMa51jxQ4lrw/Jy5SOW10ObaA47/RElsAN2c5Pn8bTgFGWn/ibwzXTE8qwr1Yzx28vsecXEA=="
-  "resolved" "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.6.tgz"
-  "version" "2.6.6"
+"node-fetch@^2.2.0", "node-fetch@^2.6.0", "node-fetch@2.6.7":
+  "integrity" "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ=="
+  "resolved" "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz"
+  "version" "2.6.7"
   dependencies:
     "whatwg-url" "^5.0.0"
 
@@ -6174,6 +6226,43 @@
   "resolved" "https://registry.npmjs.org/react-native-country-flag/-/react-native-country-flag-1.1.4.tgz"
   "version" "1.1.4"
 
+"react-native-gesture-handler@*":
+  "integrity" "sha512-WF25CNgn164bF9juW8N/jICIFXiEOgsxCuY7DRlnFdiH5ZfvMYtZHRC+zr1fFMap2ty1f2HWDQNVVSo0FDXP4A=="
+  "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.2.0.tgz"
+  "version" "2.2.0"
+  dependencies:
+    "@egjs/hammerjs" "^2.0.17"
+    "hoist-non-react-statics" "^3.3.0"
+    "invariant" "^2.2.4"
+    "lodash" "^4.17.21"
+    "prop-types" "^15.7.2"
+
+"react-native-gesture-handler@^1.7.0":
+  "integrity" "sha512-cBGMi1IEsIVMgoox4RvMx7V2r6bNKw0uR1Mu1o7NbuHS6BRSVLq0dP34l2ecnPlC+jpWd3le6Yg1nrdCjby2Mw=="
+  "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.10.3.tgz"
+  "version" "1.10.3"
+  dependencies:
+    "@egjs/hammerjs" "^2.0.17"
+    "fbjs" "^3.0.0"
+    "hoist-non-react-statics" "^3.3.0"
+    "invariant" "^2.2.4"
+    "prop-types" "^15.7.2"
+
+"react-native-haptic-feedback@^1.10.0":
+  "integrity" "sha512-g8G5QURitDeC/zRlobDvUXLxKYfMlIM2HQNWJKbHPSu61qfs0djnK4s1NZuQzihkeAO0KJ4AS2XWvKBzUmlXtA=="
+  "resolved" "https://registry.npmjs.org/react-native-haptic-feedback/-/react-native-haptic-feedback-1.13.0.tgz"
+  "version" "1.13.0"
+
+"react-native-reanimated@^2.0.0-alpha.5", "react-native-reanimated@~2.2.0":
+  "integrity" "sha512-Nn648MfEEnTCEiWsl1YmfkojiLyV0NMY0EiRdDRbZNfJVfxBuyqhCxI/4Jd7aBi162qpgf8XK2mByYgvF4zLrQ=="
+  "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.2.4.tgz"
+  "version" "2.2.4"
+  dependencies:
+    "@babel/plugin-transform-object-assign" "^7.10.4"
+    "fbjs" "^3.0.0"
+    "mockdate" "^3.0.2"
+    "string-hash-64" "^1.0.3"
+
 "react-native-safe-area-context@*", "react-native-safe-area-context@>= 3.0.0", "react-native-safe-area-context@3.2.0":
   "integrity" "sha512-k2Nty4PwSnrg9HwrYeeE+EYqViYJoOFwEy9LxL5RIRfoqxAq/uQXNGwpUg2/u4gnKpBbEPa9eRh15KKMe/VHkA=="
   "resolved" "https://registry.npmjs.org/react-native-safe-area-context/-/react-native-safe-area-context-3.2.0.tgz"
@@ -6186,7 +6275,7 @@
   dependencies:
     "warn-once" "^0.1.0"
 
-"react-native-svg@*", "react-native-svg@> 6.4.1", "react-native-svg@12.1.1":
+"react-native-svg@*", "react-native-svg@^12.1.0", "react-native-svg@> 6.4.1", "react-native-svg@12.1.1":
   "integrity" "sha512-NIAJ8jCnXGCqGWXkkJ1GTzO4a3Md5at5sagYV8Vh4MXYnL4z5Rh428Wahjhh+LIjx40EE5xM5YtwyJBqOIba2Q=="
   "resolved" "https://registry.npmjs.org/react-native-svg/-/react-native-svg-12.1.1.tgz"
   "version" "12.1.1"
@@ -6209,7 +6298,7 @@
     "prop-types" "^15.6.0"
     "react-timer-mixin" "^0.13.4"
 
-"react-native@*", "react-native@>= 0.50.0", "react-native@>=0.50.0", "react-native@>=0.62.0-rc.0 <0.64.0", "react-native@https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz":
+"react-native@*", "react-native@>= 0.50.0", "react-native@>=0.50.0", "react-native@>=0.60.0", "react-native@>=0.62.0-rc.0 <0.64.0", "react-native@https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz":
   "integrity" "sha512-qWR6pcG4yDu/Rthm+DvAS017rL38LbZFnJv/k4HL4ZUH/WhKuqC+stD7TlpaOBb3N2bkydm9s+GCa14T41MLEg=="
   "resolved" "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz"
   "version" "0.63.2"
@@ -6827,6 +6916,11 @@
   "version" "1.1.1"
   dependencies:
     "safe-buffer" "~5.1.0"
+
+"string-hash-64@^1.0.3":
+  "integrity" "sha512-D5OKWKvDhyVWWn2x5Y9b+37NUllks34q1dCDhk/vYcso9fmhs+Tl3KR/gE4v5UNj2UA35cnX4KdVVGkG1deKqw=="
+  "resolved" "https://registry.npmjs.org/string-hash-64/-/string-hash-64-1.0.3.tgz"
+  "version" "1.0.3"
 
 "string-width@^2.1.0":
   "integrity" "sha512-nOqH59deCq9SRHlxq1Aw85Jnt4w6KvLKqWVik6oA9ZklXLNIOlqg4F2yrT1MVaTjAqvVwdfeZ7w7aCvJD7ugkw=="

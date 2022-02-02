@@ -1,18 +1,14 @@
 import {
   Text,
   HStack,
-  Center,
-  Heading,
-  Switch,
-  useColorMode,
+  Spinner,
   VStack,
   Box,
-  Avatar,
   FlatList,
   ArrowForwardIcon,
   Spacer
 } from "native-base";
-import { TouchableOpacity, SafeAreaView, View, Image } from "react-native";
+import { TouchableOpacity, SafeAreaView, View } from "react-native";
 import React, { useState, useEffect } from 'react';
 import CountryFlag from "react-native-country-flag";
 
@@ -26,17 +22,19 @@ const CountriesScreen = ({ navigation }) => {
 
   }, [])
 
-
   const fetchData = () => {
     setLoading(true);
     fetch(`https://api.covid19api.com/summary`)
       .then(response => response.json())
       .then((res) => {
-        let filterEvenResults = res.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
-        setData(filterEvenResults);
+        setData(filterHighestCases(res.Countries));
         setLoading(false);
       });
   }
+
+  const filterHighestCases = (countries) => {
+   return countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
+  };
 
   const GotoPage = (countryName, flag) => {
     navigation.navigate('Country', {
@@ -44,7 +42,6 @@ const CountriesScreen = ({ navigation }) => {
       flag: flag
     });
   };
-
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -96,7 +93,7 @@ const CountriesScreen = ({ navigation }) => {
                           color: "warmGray.200",
                         }}
                       >
-                        Total Confirmed: {item.TotalConfirmed}
+                        Total Confirmed: {item.TotalConfirmed.toLocaleString()}
                       </Text>
                     </VStack>
                     <Spacer />
@@ -115,13 +112,9 @@ const CountriesScreen = ({ navigation }) => {
       )}
       {loading && (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Image
-            source={{
-              uri:
-                'https://mir-s3-cdn-cf.behance.net/project_modules/disp/04de2e31234507.564a1d23645bf.gif',
-            }}
-            style={{ height: 80, width: 60 }}
-          />
+          <HStack space={8} justifyContent="center" alignItems="center">
+            <Spinner size="lg" />
+          </HStack>
         </View>
       )}
     </SafeAreaView>

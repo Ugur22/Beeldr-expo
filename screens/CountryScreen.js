@@ -3,12 +3,15 @@ import {
   VStack,
   HStack,
   Box,
-  Heading
+  Heading,
+  Spinner
 } from "native-base";
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Image, Dimensions, StyleSheet } from "react-native";
+import { SafeAreaView, View, Dimensions, StyleSheet } from "react-native";
 import CountryFlag from "react-native-country-flag";
-import { VictoryStack, VictoryBar, VictoryChart, VictoryGroup, VictoryLabel,VictoryZoomContainer, VictoryLine } from "victory-native";
+import { VictoryStack, VictoryBar, VictoryChart, VictoryGroup, VictoryAxis, VictoryLabel, VictoryZoomContainer, VictoryLine } from "victory-native";
+import { ChartDot, ChartPath, ChartPathProvider, ChartYLabel } from '@rainbow-me/animated-charts';
+import moment from "moment";
 
 const CountryScreen = ({ route, navigation }) => {
 
@@ -75,22 +78,26 @@ const CountryScreen = ({ route, navigation }) => {
   let latest_deaths = Math.max(...amount_death);
   const screenWidth = Dimensions.get("window").width;
 
-  let dataCases = dataCountries.map(function (country) {
+  let dataBarChartRecovered = dataCountries.map(function (country) {
+    return {
+      y: country.Recovered,
+      x: country.Date
+    };
+  }).filter(item => (item.y !== 0));
+  let dataBarChartActive = dataCountries.map(function (country) {
     return {
       y: country.Active,
-      x: country.Date.slice(0, 10)
+      x: country.Date
     };
-  });
+  }).filter(item => (item.y !== 0));
+  let dataBarChartDeaths = dataCountries.map(function (country) {
+    return {
+      y: country.Deaths,
+      x: country.Date
+    };
+  }).filter(item => (item.y !== 0));
 
-
-
-  dataCases = dataCases.filter(item => (item.y !== 0));
-
-  dataCases = filterOutliers(amount_confirmed);
-
-  dataCases = dataCases.slice(-300)
-
-
+  const dataLineChart = filterOutliers(amount_confirmed).slice(-300).filter(item => (item.y !== 0));
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -102,16 +109,14 @@ const CountryScreen = ({ route, navigation }) => {
             </HStack>
             <Heading size="md" color="white">Total cases: {latest_confirmed.toLocaleString()}</Heading>
             <View style={styles.container} top={-30}>
-              <VictoryGroup containerComponent={<VictoryZoomContainer/>}
+              <VictoryGroup
                 minDomain={{ y: 0 }}
                 width={500} height={300}
               >
-
                 <VictoryLine
                   interpolation="natural"
-                  data={dataCases}
-                  // labels={(d) => `${d.y}`}
-                  labelComponent={<VictoryLabel dy={20}/>}
+                  data={dataLineChart}
+                  labelComponent={<VictoryLabel dy={20} />}
                   style={{
                     data: { stroke: "#fff" }, strokeLinecap: "round",
                     parent: { border: "1px solid #fff" }
@@ -121,19 +126,25 @@ const CountryScreen = ({ route, navigation }) => {
             </View>
           </VStack>
           <Box borderTopRadius={20} top={-140} padding={4} height={400} _dark={{ bg: "white" }} _light={{ bg: "white" }} >
-            <Heading size="sm" fontWeight="bold" color="#000" >All cases</Heading>
-            <VictoryChart width={screenWidth} height={200} domainPadding={{ x: 15 }} minDomain={{ y: 0 }}>
+            <Heading size="sm" fontWeight="bold" color="#000" >data for all case types</Heading>
+            <VictoryChart width={screenWidth} height={200}  domainPadding={{ x: -15 }} minDomain={{ y: 0 }} domain={{ x: [0, 7], y: [0, 10] }} >
+              <VictoryAxis
+                tickFormat={(x) => {
+                  return moment(x)
+                    .format(`DD-MMM`);
+                }}
+              />
               <VictoryStack
                 colorScale={["#FF4757", "#EE5A24", "#7BED9F"]}
               >
                 <VictoryBar style={{ data: { width: 30 } }}
-                  data={[{ x: "a", y: 2 }, { x: "b", y: 3 }, { x: "c", y: 5 }, { x: "d", y: 5 }, { x: "e", y: 5 }]}
+                  data={dataBarChartActive}
                 />
                 <VictoryBar style={{ data: { width: 30 } }}
-                  data={[{ x: "a", y: 1 }, { x: "b", y: 4 }, { x: "c", y: 5 }, { x: "d", y: 5 }, { x: "e", y: 5 }]}
+                  data={dataBarChartDeaths}
                 />
                 <VictoryBar style={{ data: { width: 30 } }}
-                  data={[{ x: "a", y: 3 }, { x: "b", y: 2 }, { x: "c", y: 6 }, { x: "d", y: 5 }, { x: "e", y: 5 }]}
+                  data={dataBarChartRecovered}
                 />
               </VictoryStack>
             </VictoryChart>
@@ -154,13 +165,9 @@ const CountryScreen = ({ route, navigation }) => {
       )}
       {loading && (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Image
-            source={{
-              uri:
-                'https://mir-s3-cdn-cf.behance.net/project_modules/disp/04de2e31234507.564a1d23645bf.gif',
-            }}
-            style={{ height: 80, width: 60 }}
-          />
+          <HStack space={8} justifyContent="center" alignItems="center">
+            <Spinner size="lg" />
+          </HStack>
         </View>
       )}
     </SafeAreaView>

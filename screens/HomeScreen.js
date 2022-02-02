@@ -10,7 +10,6 @@ import {
 } from "native-base";
 import React from "react";
 import CustomButton from "../components/CustomButton";
-import NativeBaseIcon from "../components/NativeBaseIcon";
 
 const HomeScreen = ({ navigation }) => {
 
