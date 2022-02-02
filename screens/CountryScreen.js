@@ -7,7 +7,7 @@ import {
   Spinner
 } from "native-base";
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Dimensions, StyleSheet } from "react-native";
+import { SafeAreaView, View, Dimensions, StyleSheet,LogBox } from "react-native";
 import CountryFlag from "react-native-country-flag";
 import { VictoryStack, VictoryBar, VictoryChart, VictoryGroup, VictoryAxis, VictoryLabel, VictoryZoomContainer, VictoryLine } from "victory-native";
 import { ChartDot, ChartPath, ChartPathProvider, ChartYLabel } from '@rainbow-me/animated-charts';
@@ -33,7 +33,7 @@ const CountryScreen = ({ route, navigation }) => {
 
   }, [])
 
-
+  LogBox.ignoreLogs([' Failed prop type: undefined is not an object']);
   const fetchData = () => {
     setLoading(true);
     fetch(`https://api.covid19api.com/total/country/${country}`)
