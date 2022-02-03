@@ -47,29 +47,15 @@ const CountryScreen = ({ route, navigation }) => {
   let latest_deaths = Math.max(...amount_death);
   const screenWidth = Dimensions.get("window").width;
 
-  let dataBarChartRecovered = dataCountries.map(function (country) {
-    return {
-      y: country.Recovered,
-      x: country.Date
-    };
-  });
-  let dataBarChartActive = dataCountries.map(function (country) {
-    return {
-      y: country.Active,
-      x: country.Date
-    };
-  });
-  let dataBarChartDeaths = dataCountries.map(function (country) {
-    return {
-      y: country.Deaths,
-      x: country.Date
-    };
-  });
-
-
-  dataBarChartDeaths = dataBarChartDeaths.slice(100, 105);
-  dataBarChartActive = dataBarChartActive.slice(100, 105);
-  dataBarChartRecovered = dataBarChartRecovered.slice(100, 105);
+  const getDataBarChart = (datatype) => {
+    let dataBarChart = dataCountries.map(function (country) {
+      return {
+        y: country[datatype],
+        x: country.Date
+      };
+    });
+    return dataBarChart.slice(100, 105);
+  }
 
   const dataLineChart = filterOutliers(amount_confirmed).slice(-300).filter(item => (item.y !== 0));
 
@@ -113,13 +99,13 @@ const CountryScreen = ({ route, navigation }) => {
                 colorScale={["#FF4757", "#EE5A24", "#7BED9F"]}
               >
                 <VictoryBar
-                  data={dataBarChartDeaths}
+                  data={getDataBarChart('Deaths')}
                 />
                 <VictoryBar
-                  data={dataBarChartActive}
+                  data={getDataBarChart('Active')}
                 />
                 <VictoryBar
-                  data={dataBarChartRecovered}
+                  data={getDataBarChart('Recovered')}
                 />
               </VictoryGroup>
               <VictoryLegend x={0} y={0}
