@@ -1,8 +1,8 @@
 import { VStack, HStack, Box, Heading, Spinner } from "native-base";
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Dimensions, StyleSheet, LogBox } from "react-native";
+import { SafeAreaView, View, Dimensions, StyleSheet,ScrollView, LogBox } from "react-native";
 import CountryFlag from "react-native-country-flag";
-import { VictoryBar, VictoryChart, VictoryGroup, VictoryAxis,VictoryArea, VictoryLabel, VictoryLegend, VictoryLine } from "victory-native";
+import { VictoryBar, VictoryChart, VictoryGroup,VictoryVoronoiContainer, VictoryAxis,VictoryArea, VictoryLabel, VictoryLegend, VictoryLine } from "victory-native";
 import moment from "moment";
 import { filterOutliers } from "./../settings/utils";
 
@@ -47,20 +47,20 @@ const CountryScreen = ({ route, navigation }) => {
   let latest_deaths = Math.max(...amount_death);
   const screenWidth = Dimensions.get("window").width;
 
-  const getDataBarChart = (datatype) => {
+  const getDataBarChart = (datatype,sliceStart,sliceEnd) => {
     let dataBarChart = dataCountries.map(function (country) {
       return {
         y: country[datatype],
         x: country.Date
       };
     });
-    return dataBarChart.slice(100, 105);
+    return dataBarChart.slice(sliceStart, sliceEnd);
   }
 
-  const dataLineChart = filterOutliers(amount_confirmed).slice(-300).filter(item => (item.y !== 0));
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+       <ScrollView >
       {!loading && (
         <Box flex={1} pt="0" _dark={{ bg: "DeepBlue" }} _light={{ bg: "DeepBlue" }} w={{ base: "100%" }} >
           <VStack space={0} alignItems="center">
@@ -68,15 +68,34 @@ const CountryScreen = ({ route, navigation }) => {
               <CountryFlag isoCode={flag} size={10} style={{ borderRadius: 100, marginTop: 20, height: 50, width: 50 }} />
             </HStack>
             <Heading size="md" color="white">Total cases: {latest_confirmed.toLocaleString()}</Heading>
-            <View style={styles.container} top={-30}>
+            <View style={styles.container} top={0} height={100}>
               <VictoryGroup
                 minDomain={{ y: 0 }}
                 width={500} height={300}
+                containerComponent={
+                  <VictoryVoronoiContainer
+                    mouseFollowTooltips
+                    voronoiDimension="x"
+                    labels={({ datum }) => `${datum.y.toLocaleString()}`}
+                    labelComponent={<VictoryLabel dy={-40} 
+                    style={[
+                      { fill: "white", fontSize: 16 }
+                    ]}
+                    backgroundPadding={[
+                      3,
+                      { left: 20, right: 20 },
+                      { left: 20}
+                    ]}
+                    backgroundStyle={[
+                      { fill: "white", opacity: 0.2 },
+                    ]} />}
+                  />
+                }
               >
                 <VictoryArea
                   interpolation="natural"
-                  data={dataLineChart}
-                  labelComponent={<VictoryLabel dy={20} />}
+                  data={getDataBarChart('Confirmed').filter(item => (item.y !== 0))}
+                  fixLabelOverlap={false}
                   style={{
                     data: { stroke: "#fff", fill: "rgba(52, 52, 52, 0.5)" }, strokeLinecap: "round",
                     parent: { border: "1px solid #fff" }
@@ -85,8 +104,8 @@ const CountryScreen = ({ route, navigation }) => {
               </VictoryGroup>
             </View>
           </VStack>
-          <Box borderTopRadius={50} top={-140} padding={6} height={400} _dark={{ bg: "white" }} _light={{ bg: "white" }} >
-            <VictoryChart width={screenWidth} height={200} domainPadding={10} minDomain={{ y: 0 }} >
+          <Box borderTopRadius={0} top={12} padding={6} _dark={{ bg: "white" }} _light={{ bg: "white" }} >
+            <VictoryChart width={screenWidth}  domainPadding={10} minDomain={{ y: 0 }} >
 
               <VictoryAxis dependentAxis tickFormat={x => (x >= 1000000 ? `${x / 1000000}m` : x >= 1000 ? `${x / 1000}k` : `${x}`)} offsetX={45} />
               <VictoryAxis tickFormat={(x) => {
@@ -99,13 +118,13 @@ const CountryScreen = ({ route, navigation }) => {
                 colorScale={["#FF4757", "#EE5A24", "#7BED9F"]}
               >
                 <VictoryBar
-                  data={getDataBarChart('Deaths')}
+                  data={getDataBarChart('Deaths',100,105)}
                 />
                 <VictoryBar
-                  data={getDataBarChart('Active')}
+                       data={getDataBarChart('Active',100,105)}
                 />
                 <VictoryBar
-                  data={getDataBarChart('Recovered')}
+                      data={getDataBarChart('Recovered',100,105)}
                 />
               </VictoryGroup>
               <VictoryLegend x={0} y={0}
@@ -141,6 +160,7 @@ const CountryScreen = ({ route, navigation }) => {
           </HStack>
         </View>
       )}
+           </ScrollView>
     </SafeAreaView>
   );
 }
