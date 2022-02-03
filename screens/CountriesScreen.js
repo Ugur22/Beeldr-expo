@@ -1,13 +1,4 @@
-import {
-  Text,
-  HStack,
-  Spinner,
-  VStack,
-  Box,
-  FlatList,
-  ArrowForwardIcon,
-  Spacer
-} from "native-base";
+import { Text, HStack, Spinner, VStack, Box, FlatList, ArrowForwardIcon, Spacer } from "native-base";
 import { TouchableOpacity, SafeAreaView, View } from "react-native";
 import React, { useState, useEffect } from 'react';
 import CountryFlag from "react-native-country-flag";
@@ -33,7 +24,7 @@ const CountriesScreen = ({ navigation }) => {
   }
 
   const filterHighestCases = (countries) => {
-   return countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
+    return countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
   };
 
   const GotoPage = (countryName, flag) => {
@@ -59,7 +50,7 @@ const CountriesScreen = ({ navigation }) => {
           }}
         >
           <FlatList
-            data={data}
+            data={data} initialNumToRender={10}
             renderItem={({ item }) => (
               <Box
                 borderBottomWidth="1"

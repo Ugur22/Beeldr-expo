@@ -1,17 +1,10 @@
-import {
-  Text,
-  VStack,
-  HStack,
-  Box,
-  Heading,
-  Spinner
-} from "native-base";
+import { VStack, HStack, Box, Heading, Spinner } from "native-base";
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Dimensions, StyleSheet,LogBox } from "react-native";
+import { SafeAreaView, View, Dimensions, StyleSheet, LogBox } from "react-native";
 import CountryFlag from "react-native-country-flag";
-import { VictoryStack, VictoryBar, VictoryChart, VictoryGroup, VictoryAxis, VictoryLabel, VictoryZoomContainer, VictoryLine } from "victory-native";
-import { ChartDot, ChartPath, ChartPathProvider, ChartYLabel } from '@rainbow-me/animated-charts';
+import { VictoryBar, VictoryChart, VictoryGroup, VictoryAxis,VictoryArea, VictoryLabel, VictoryLegend, VictoryLine } from "victory-native";
 import moment from "moment";
+import { filterOutliers } from "./../settings/utils";
 
 const CountryScreen = ({ route, navigation }) => {
 
@@ -44,30 +37,6 @@ const CountryScreen = ({ route, navigation }) => {
       });
   }
 
-  let filterOutliers = (someArray) => {
-
-    if (someArray.length < 4)
-      return someArray;
-
-    let values, q1, q3, iqr, maxValue, minValue;
-
-    values = someArray.slice().sort((a, b) => a - b);//copy array fast and sort
-
-    if ((values.length / 4) % 1 === 0) {//find quartiles
-      q1 = 1 / 2 * (values[(values.length / 4)] + values[(values.length / 4) + 1]);
-      q3 = 1 / 2 * (values[(values.length * (3 / 4))] + values[(values.length * (3 / 4)) + 1]);
-    } else {
-      q1 = values[Math.floor(values.length / 4 + 1)];
-      q3 = values[Math.ceil(values.length * (3 / 4) + 1)];
-    }
-
-    iqr = q3 - q1;
-    maxValue = q3 + iqr * 1.5;
-    minValue = q1 - iqr * 1.5;
-
-    return values.filter((x) => (x >= minValue) && (x <= maxValue));
-  }
-
   const amount_confirmed = dataCountries.map((a) => a.Confirmed);
   const amount_active = dataCountries.map((a) => a.Active);
   const amount_recovered = dataCountries.map((a) => a.Recovered);
@@ -83,19 +52,24 @@ const CountryScreen = ({ route, navigation }) => {
       y: country.Recovered,
       x: country.Date
     };
-  }).filter(item => (item.y !== 0));
+  });
   let dataBarChartActive = dataCountries.map(function (country) {
     return {
       y: country.Active,
       x: country.Date
     };
-  }).filter(item => (item.y !== 0));
+  });
   let dataBarChartDeaths = dataCountries.map(function (country) {
     return {
       y: country.Deaths,
       x: country.Date
     };
-  }).filter(item => (item.y !== 0));
+  });
+
+
+  dataBarChartDeaths = dataBarChartDeaths.slice(100, 105);
+  dataBarChartActive = dataBarChartActive.slice(100, 105);
+  dataBarChartRecovered = dataBarChartRecovered.slice(100, 105);
 
   const dataLineChart = filterOutliers(amount_confirmed).slice(-300).filter(item => (item.y !== 0));
 
@@ -105,7 +79,7 @@ const CountryScreen = ({ route, navigation }) => {
         <Box flex={1} pt="0" _dark={{ bg: "DeepBlue" }} _light={{ bg: "DeepBlue" }} w={{ base: "100%" }} >
           <VStack space={0} alignItems="center">
             <HStack space={2} alignItems="center" paddingTop={2} paddingBottom={2} >
-              <CountryFlag isoCode={flag} size={10} style={{ borderRadius: 100, height: 50, width: 50 }} />
+              <CountryFlag isoCode={flag} size={10} style={{ borderRadius: 100, marginTop: 20, height: 50, width: 50 }} />
             </HStack>
             <Heading size="md" color="white">Total cases: {latest_confirmed.toLocaleString()}</Heading>
             <View style={styles.container} top={-30}>
@@ -113,52 +87,63 @@ const CountryScreen = ({ route, navigation }) => {
                 minDomain={{ y: 0 }}
                 width={500} height={300}
               >
-                <VictoryLine
+                <VictoryArea
                   interpolation="natural"
                   data={dataLineChart}
                   labelComponent={<VictoryLabel dy={20} />}
                   style={{
-                    data: { stroke: "#fff" }, strokeLinecap: "round",
+                    data: { stroke: "#fff", fill: "rgba(52, 52, 52, 0.5)" }, strokeLinecap: "round",
                     parent: { border: "1px solid #fff" }
                   }}
                 />
               </VictoryGroup>
             </View>
           </VStack>
-          <Box borderTopRadius={20} top={-140} padding={4} height={400} _dark={{ bg: "white" }} _light={{ bg: "white" }} >
-            <Heading size="sm" fontWeight="bold" color="#000" >data for all case types</Heading>
-            <VictoryChart width={screenWidth} height={200}  domainPadding={{ x: -15 }} minDomain={{ y: 0 }} domain={{ x: [0, 7], y: [0, 10] }} >
-              <VictoryAxis
-                tickFormat={(x) => {
-                  return moment(x)
-                    .format(`DD-MMM`);
-                }}
+          <Box borderTopRadius={50} top={-140} padding={6} height={400} _dark={{ bg: "white" }} _light={{ bg: "white" }} >
+            <VictoryChart width={screenWidth} height={200} domainPadding={10} minDomain={{ y: 0 }} >
+
+              <VictoryAxis dependentAxis tickFormat={x => (x >= 1000000 ? `${x / 1000000}m` : x >= 1000 ? `${x / 1000}k` : `${x}`)} offsetX={45} />
+              <VictoryAxis tickFormat={(x) => {
+                return moment(x)
+                  .format(`D MMM`);
+              }}
+                style={{ tickLabels: { fontSize: 12 } }}
               />
-              <VictoryStack
+              <VictoryGroup offset={10}
                 colorScale={["#FF4757", "#EE5A24", "#7BED9F"]}
               >
-                <VictoryBar style={{ data: { width: 30 } }}
-                  data={dataBarChartActive}
-                />
-                <VictoryBar style={{ data: { width: 30 } }}
+                <VictoryBar
                   data={dataBarChartDeaths}
                 />
-                <VictoryBar style={{ data: { width: 30 } }}
+                <VictoryBar
+                  data={dataBarChartActive}
+                />
+                <VictoryBar
                   data={dataBarChartRecovered}
                 />
-              </VictoryStack>
+              </VictoryGroup>
+              <VictoryLegend x={0} y={0}
+                centerTitle
+                orientation="horizontal"
+                colorScale={["#FF4757", "#EE5A24", "#7BED9F"]}
+                gutter={20}
+                style={{ labels: { fontSize: 16 } }}
+                data={[
+                  { name: "Deaths" }, { name: "Active" }, { name: "Recovered" }
+                ]}
+              />
             </VictoryChart>
-            <HStack space={2} alignItems="center" paddingTop={2} paddingBottom={2} >
-              <Heading paddingBottom={2} size="sm" color="#7C828A" >Active cases:</Heading>
-              <Heading paddingBottom={2} size="sm" color="#7C828A" >{latest_active.toLocaleString()}</Heading>
+            <HStack alignItems="center" paddingBottom={2} >
+              <Heading paddingBottom={2} size="xs" color="black" >Active cases:</Heading>
+              <Heading paddingBottom={2} size="xs" color="black" > {latest_active.toLocaleString()}</Heading>
             </HStack>
             <HStack space={2} alignItems="center" paddingBottom={2} >
-              <Heading paddingBottom={2} size="sm" color="#7C828A" >Recovered cases:</Heading>
-              <Heading paddingBottom={2} size="sm" color="#7C828A" >{latest_recovered.toLocaleString()}</Heading>
+              <Heading paddingBottom={2} size="xs" color="black" >Recovered cases:</Heading>
+              <Heading paddingBottom={2} size="xs" color="black" >{latest_recovered.toLocaleString()}</Heading>
             </HStack>
             <HStack space={2} alignItems="center" paddingBottom={2} >
-              <Heading paddingBottom={2} size="sm" color="#7C828A" >Deaths cases:</Heading>
-              <Heading paddingBottom={2} size="sm" color="#7C828A" >{latest_deaths.toLocaleString()}</Heading>
+              <Heading paddingBottom={2} size="xs" color="black" >Death cases:</Heading>
+              <Heading paddingBottom={2} size="xs" color="black" >{latest_deaths.toLocaleString()}</Heading>
             </HStack>
           </Box>
         </Box>

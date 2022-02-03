@@ -1,15 +1,4 @@
-import {
-  Text,
-  HStack,
-  Center,
-  Heading,
-  Box,
-  Switch,
-  useColorMode,
-  MoonIcon,
-  SunIcon,
-  VStack,
-} from "native-base";
+import {Text,HStack,Box,Switch,useColorMode,MoonIcon,SunIcon,VStack} from "native-base";
 import {SafeAreaView} from "react-native";
 import React from "react";
 import CustomButton from "../components/CustomButton";

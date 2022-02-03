@@ -44,7 +44,7 @@ expo start --no-dev --minify
     
 ## Tech Stack
 
-React-Native, Expo, native-base, react-native-chart-kit
+React-Native, Expo, native-base, victory-native
   
 ## Features
 

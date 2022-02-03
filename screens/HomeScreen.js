@@ -1,13 +1,4 @@
-import {
-    Text,
-    HStack,
-    Center,
-    Heading,
-    Switch,
-    useColorMode,
-    VStack,
-    Image,
-} from "native-base";
+import { Center, VStack, Image } from "native-base";
 import React from "react";
 import CustomButton from "../components/CustomButton";
 
