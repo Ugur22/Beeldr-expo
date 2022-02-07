@@ -8,7 +8,7 @@ const CountryCard = (props) => {
     const navigation = useNavigation();
     return (
         <View>
-            <Box borderBottomWidth="1" _dark={{ borderColor: "gray.600", bg: 'darkBlue.50' }} bg="DeepBlue" borderRadius="12" borderColor="coolGray.200" p="4" m="1">
+            <Box borderBottomWidth="3" _dark={{ borderColor: "gray.600", bg: 'darkBlue.50' }} bg="DeepBlue" borderRadius="12" borderColor="red.300" p="4" m="1">
                 <TouchableOpacity onPress={() => navigation.navigate('Country', {
                     countryName: props.item.Country,
                     flag: props.item.CountryCode
@@ -23,7 +23,7 @@ const CountryCard = (props) => {
                         </VStack>
                         <Spacer />
                         <Box  _dark={{ borderColor: "gray.600", bg:"DeepBlue" }} bg="white" borderRadius="100" justifyContent="center" p="1" >
-                            <ArrowForwardIcon size="md" mt="0.5" color="DeepBlue" _dark={{ color: "white", }} alignSelf="center" />
+                            <ArrowForwardIcon size="md" color="DeepBlue" _dark={{ color: "white", }} alignSelf="center" />
                         </Box>
                     </HStack>
                 </TouchableOpacity>
