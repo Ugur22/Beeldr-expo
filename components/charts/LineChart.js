@@ -4,15 +4,8 @@ import { View, StyleSheet } from "react-native";
 
 const LineChart = (props) => {
 
-    const styles = StyleSheet.create({
-        container: {
-            justifyContent: "center",
-            alignItems: "center",
-        }
-    });
-
     return (
-        <View style={styles.container} top={0} height={100}>
+        <View style={{justifyContent: "center", alignItems: "center"}} top={0} height={100}>
             <VictoryGroup
                 minDomain={{ y: 0 }}
                 width={520} height={300}
@@ -34,7 +27,6 @@ const LineChart = (props) => {
                 />
             </VictoryGroup>
         </View>
-
     );
 };
 
@@ -43,6 +35,5 @@ const CustomTooltip = () => {
         backgroundPadding={[3, { left: 20, right: 20 }, { left: 20 }]} backgroundStyle={[{ fill: "white", opacity: 0.2 },]}
     />)
 };
-
 
 export default LineChart;

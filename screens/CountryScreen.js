@@ -1,6 +1,6 @@
 import { VStack, HStack, Box, Heading, Spinner } from "native-base";
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Dimensions, StyleSheet, ScrollView, LogBox, PixelRatio } from "react-native";
+import { SafeAreaView, View, ScrollView, LogBox } from "react-native";
 import CountryFlag from "react-native-country-flag";
 import LineChart from "../components/charts/LineChart";
 import GroupBarChart from "../components/charts/GroupBarChart";
@@ -14,13 +14,6 @@ const CountryScreen = ({ route }) => {
   let country = route.params.countryName;
   let flag = route.params.flag;
   const [loading, setLoading] = useState(false);
-
-  const styles = StyleSheet.create({
-    container: {
-      justifyContent: "center",
-      alignItems: "center",
-    }
-  });
 
   useEffect(() => {
     fetchData();
@@ -43,9 +36,6 @@ const CountryScreen = ({ route }) => {
   let latest_active = Math.max(...dataCountries.map((a) => a.Active));
   let latest_recovered = Math.max(...dataCountries.map((a) => a.Recovered));
   let latest_deaths = Math.max(...dataCountries.map((a) => a.Deaths));
-
-  const screenWidth = Dimensions.get("window").width;
-  const screenHeight = Dimensions.get("window").height;
 
   const getDataBarChart = (datatype, sliceStart, sliceEnd) => {
     let dataBarChart = dataCountries.map(function (country) {
