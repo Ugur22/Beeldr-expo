@@ -8,7 +8,7 @@ const CountryCard = (props) => {
     const navigation = useNavigation();
     return (
         <View>
-            <Box borderBottomWidth="1" _dark={{ borderColor: "gray.600" }} borderColor="coolGray.200" pl="2" pr="2" py="2">
+            <Box borderBottomWidth="1" _dark={{ borderColor: "gray.600", bg: 'darkBlue.50' }} bg="DeepBlue" borderRadius="12" borderColor="coolGray.200" p="4" m="1">
                 <TouchableOpacity onPress={() => navigation.navigate('Country', {
                     countryName: props.item.Country,
                     flag: props.item.CountryCode
@@ -18,14 +18,13 @@ const CountryCard = (props) => {
                             borderRadius: 100, height: 40, width: 40
                         }} />
                         <VStack>
-                            <Text _dark={{ color: "warmGray.50" }} color="coolGray.800" bold>
-                                {props.item.Country}
-                            </Text>
-                            <Text color="coolGray.600" _dark={{ color: "warmGray.200" }}>Total Confirmed: {props.item.TotalConfirmed.toLocaleString()}
-                            </Text>
+                            <Text _dark={{ color: "DeepBlue" }} color="white" bold>{props.item.Country}</Text>
+                            <Text color="white" _dark={{ color: "DeepBlue" }}>Cases: {props.item.TotalConfirmed.toLocaleString()}</Text>
                         </VStack>
                         <Spacer />
-                        <ArrowForwardIcon size="sm" mt="0.5" color="DeepBlue" _dark={{ color: "white", }} alignSelf="center" />
+                        <Box  _dark={{ borderColor: "gray.600", bg:"DeepBlue" }} bg="white" borderRadius="100" justifyContent="center" p="1" >
+                            <ArrowForwardIcon size="md" mt="0.5" color="DeepBlue" _dark={{ color: "white", }} alignSelf="center" />
+                        </Box>
                     </HStack>
                 </TouchableOpacity>
             </Box>

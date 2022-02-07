@@ -1,11 +1,11 @@
 import React from 'react';
 import { VictoryGroup, VictoryVoronoiContainer, VictoryArea, VictoryLabel } from "victory-native";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 
 const LineChart = (props) => {
 
     return (
-        <View style={{justifyContent: "center", alignItems: "center"}} top={0} height={100}>
+        <View style={{ justifyContent: "center", alignItems: "center" }} top={0} height={100}>
             <VictoryGroup
                 minDomain={{ y: 0 }}
                 width={520} height={300}
@@ -31,7 +31,7 @@ const LineChart = (props) => {
 };
 
 const CustomTooltip = () => {
-    return (<VictoryLabel dy={-20} dx={-80} style={[{ fill: "white", fontSize: 16 }]}
+    return (<VictoryLabel constrainToVisibleArea dy={-20} dx={-80} style={[{ fill: "white", fontSize: 16 }]}
         backgroundPadding={[3, { left: 20, right: 20 }, { left: 20 }]} backgroundStyle={[{ fill: "white", opacity: 0.2 },]}
     />)
 };

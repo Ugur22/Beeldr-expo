@@ -1,4 +1,4 @@
-import { VStack, HStack, Box, Heading, Spinner } from "native-base";
+import { VStack, HStack, Box, Spinner } from "native-base";
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, ScrollView, LogBox } from "react-native";
 import CountryFlag from "react-native-country-flag";
@@ -20,7 +20,6 @@ const CountryScreen = ({ route }) => {
 
   }, [])
 
-
   const fetchData = () => {
     setLoading(true);
     fetch(`https://api.covid19api.com/total/country/${country}`)
@@ -38,10 +37,11 @@ const CountryScreen = ({ route }) => {
   let latest_deaths = Math.max(...dataCountries.map((a) => a.Deaths));
 
   const getDataBarChart = (datatype, sliceStart, sliceEnd) => {
-    let dataBarChart = dataCountries.map(function (country) {
+    let dataBarChart = dataCountries.map(function (country,index) {
       return {
         y: country[datatype],
-        x: country.Date
+        x: country.Date,
+        ID: index
       };
     });
     return dataBarChart.slice(sliceStart, sliceEnd);
@@ -55,10 +55,10 @@ const CountryScreen = ({ route }) => {
             <HStack space={2} alignItems="center" paddingTop={2} paddingBottom={2} >
               <CountryFlag isoCode={flag} size={10} style={{ borderRadius: 100, marginTop: 20, height: 50, width: 50 }} />
             </HStack>
-            <Heading size="md" color="white">Total cases: {latest_confirmed.toLocaleString()}</Heading>
+            <CasesBlock title="Total cases:" textColor="white" value={latest_confirmed.toLocaleString()} />
             <LineChart data={getDataBarChart('Confirmed').filter(item => (item.y !== 0))} />
           </VStack>
-          <Box flex={1} style={{ top: 52 }} paddingX={4} _dark={{ bg: "white" }} _light={{ bg: "white" }} >
+          <Box flex={1} style={{ top: 52 }} paddingX={4} _dark={{ bg: "darkBlue.50" }} _light={{ bg: "white" }} >
             <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ top: -20 }} >
               <GroupBarChart deaths={getDataBarChart('Deaths', 100, 105)} active={getDataBarChart('Active', 100, 105)}
                 recovered={getDataBarChart('Recovered', 100, 105)} />

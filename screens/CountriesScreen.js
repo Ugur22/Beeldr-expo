@@ -30,7 +30,7 @@ const CountriesScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {!loading && (
-        <Box flex={1} pt="3" _dark={{ bg: "DeepBlue" }} _light={{ bg: "white" }} px={4} flex={1} w={{ base: "100%", md: "25%" }}>
+        <Box flex={1} pt="3" _dark={{ bg: "DeepBlue" }} _light={{ bg: "white" }} px={2} flex={1} w={{ base: "100%", md: "25%" }}>
           <FlatList
             data={data} initialNumToRender={10}
             renderItem={_renderitem}
