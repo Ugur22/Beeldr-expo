@@ -1,10 +1,9 @@
 import { VStack, HStack, Box, Heading, Spinner } from "native-base";
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Dimensions, StyleSheet,ScrollView, LogBox } from "react-native";
+import { SafeAreaView, View, Dimensions, StyleSheet, ScrollView, LogBox,PixelRatio } from "react-native";
 import CountryFlag from "react-native-country-flag";
-import { VictoryBar, VictoryChart, VictoryGroup,VictoryVoronoiContainer, VictoryAxis,VictoryArea, VictoryLabel, VictoryLegend, VictoryLine } from "victory-native";
+import { VictoryBar, VictoryChart, VictoryGroup, VictoryVoronoiContainer, VictoryAxis, VictoryArea, VictoryLabel, VictoryLegend } from "victory-native";
 import moment from "moment";
-import { filterOutliers } from "./../settings/utils";
 
 const CountryScreen = ({ route, navigation }) => {
 
@@ -19,7 +18,6 @@ const CountryScreen = ({ route, navigation }) => {
       alignItems: "center",
     }
   });
-
 
   useEffect(() => {
     fetchData();
@@ -46,8 +44,9 @@ const CountryScreen = ({ route, navigation }) => {
   let latest_recovered = Math.max(...amount_recovered);
   let latest_deaths = Math.max(...amount_death);
   const screenWidth = Dimensions.get("window").width;
+  const screenHeight = Dimensions.get("window").height;
 
-  const getDataBarChart = (datatype,sliceStart,sliceEnd) => {
+  const getDataBarChart = (datatype, sliceStart, sliceEnd) => {
     let dataBarChart = dataCountries.map(function (country) {
       return {
         y: country[datatype],
@@ -59,8 +58,7 @@ const CountryScreen = ({ route, navigation }) => {
 
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-       <ScrollView >
+    <SafeAreaView flex={1}>
       {!loading && (
         <Box flex={1} pt="0" _dark={{ bg: "DeepBlue" }} _light={{ bg: "DeepBlue" }} w={{ base: "100%" }} >
           <VStack space={0} alignItems="center">
@@ -71,24 +69,24 @@ const CountryScreen = ({ route, navigation }) => {
             <View style={styles.container} top={0} height={100}>
               <VictoryGroup
                 minDomain={{ y: 0 }}
-                width={500} height={300}
+                width={520} height={300}
                 containerComponent={
                   <VictoryVoronoiContainer
                     mouseFollowTooltips
                     voronoiDimension="x"
                     labels={({ datum }) => `${datum.y.toLocaleString()}`}
-                    labelComponent={<VictoryLabel dy={-40} 
-                    style={[
-                      { fill: "white", fontSize: 16 }
-                    ]}
-                    backgroundPadding={[
-                      3,
-                      { left: 20, right: 20 },
-                      { left: 20}
-                    ]}
-                    backgroundStyle={[
-                      { fill: "white", opacity: 0.2 },
-                    ]} />}
+                    labelComponent={<VictoryLabel dy={-20} dx={-80}
+                      style={[
+                        { fill: "white", fontSize: 16 }
+                      ]}
+                      backgroundPadding={[
+                        3,
+                        { left: 20, right: 20 },
+                        { left: 20 }
+                      ]}
+                      backgroundStyle={[
+                        { fill: "white", opacity: 0.2 },
+                      ]} />}
                   />
                 }
               >
@@ -104,53 +102,58 @@ const CountryScreen = ({ route, navigation }) => {
               </VictoryGroup>
             </View>
           </VStack>
-          <Box borderTopRadius={0} top={12} padding={6} _dark={{ bg: "white" }} _light={{ bg: "white" }} >
-            <VictoryChart width={screenWidth}  domainPadding={10} minDomain={{ y: 0 }} >
+          <Box borderTopRadius={0} flex={1}  style={{top: 52 }} padding={6} _dark={{ bg: "white" }} _light={{ bg: "white" }} >
 
-              <VictoryAxis dependentAxis tickFormat={x => (x >= 1000000 ? `${x / 1000000}m` : x >= 1000 ? `${x / 1000}k` : `${x}`)} offsetX={45} />
-              <VictoryAxis tickFormat={(x) => {
-                return moment(x)
-                  .format(`D MMM`);
-              }}
-                style={{ tickLabels: { fontSize: 12 } }}
-              />
-              <VictoryGroup offset={10}
-                colorScale={["#FF4757", "#EE5A24", "#7BED9F"]}
-              >
-                <VictoryBar
-                  data={getDataBarChart('Deaths',100,105)}
+            <ScrollView showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}>
+              <VictoryChart width={screenWidth} domainPadding={10} minDomain={{ y: 0 }}   height={screenHeight > 700 ? 300 : 210}>
+
+                <VictoryAxis dependentAxis tickFormat={x => (x >= 1000000 ? `${x / 1000000}m` : x >= 1000 ? `${x / 1000}k` : `${x}`)} offsetX={45} />
+                <VictoryAxis tickFormat={(x) => {
+                  return moment(x)
+                    .format(`D MMM`);
+                }}
+                  style={{ tickLabels: { fontSize: 12 } }}
                 />
-                <VictoryBar
-                       data={getDataBarChart('Active',100,105)}
+                <VictoryGroup offset={10}
+                  colorScale={["#FF4757", "#EE5A24", "#7BED9F"]}
+                >
+                  <VictoryBar
+                    data={getDataBarChart('Deaths', 100, 105)}
+                  />
+                  <VictoryBar
+                    data={getDataBarChart('Active', 100, 105)}
+                  />
+                  <VictoryBar
+                    data={getDataBarChart('Recovered', 100, 105)}
+                  />
+                </VictoryGroup>
+                <VictoryLegend x={0} y={0}
+                  centerTitle
+                  orientation="horizontal"
+                  colorScale={["#FF4757", "#EE5A24", "#7BED9F"]}
+                  gutter={20}
+                  style={{ labels: { fontSize: 16 } }}
+                  data={[
+                    { name: "Deaths" }, { name: "Active" }, { name: "Recovered" }
+                  ]}
                 />
-                <VictoryBar
-                      data={getDataBarChart('Recovered',100,105)}
-                />
-              </VictoryGroup>
-              <VictoryLegend x={0} y={0}
-                centerTitle
-                orientation="horizontal"
-                colorScale={["#FF4757", "#EE5A24", "#7BED9F"]}
-                gutter={20}
-                style={{ labels: { fontSize: 16 } }}
-                data={[
-                  { name: "Deaths" }, { name: "Active" }, { name: "Recovered" }
-                ]}
-              />
-            </VictoryChart>
-            <HStack alignItems="center" paddingBottom={2} >
-              <Heading paddingBottom={2} size="xs" color="black" >Active cases:</Heading>
-              <Heading paddingBottom={2} size="xs" color="black" > {latest_active.toLocaleString()}</Heading>
-            </HStack>
-            <HStack space={2} alignItems="center" paddingBottom={2} >
-              <Heading paddingBottom={2} size="xs" color="black" >Recovered cases:</Heading>
-              <Heading paddingBottom={2} size="xs" color="black" >{latest_recovered.toLocaleString()}</Heading>
-            </HStack>
-            <HStack space={2} alignItems="center" paddingBottom={2} >
-              <Heading paddingBottom={2} size="xs" color="black" >Death cases:</Heading>
-              <Heading paddingBottom={2} size="xs" color="black" >{latest_deaths.toLocaleString()}</Heading>
-            </HStack>
+              </VictoryChart>
+              <HStack alignItems="center" paddingBottom={2} >
+                <Heading paddingBottom={2} size="sm" color="black" >Active cases:</Heading>
+                <Heading paddingBottom={2} size="sm" color="black" > {latest_active.toLocaleString()}</Heading>
+              </HStack>
+              <HStack space={2} alignItems="center" paddingBottom={2} >
+                <Heading paddingBottom={2} size="sm" color="black" >Recovered cases:</Heading>
+                <Heading paddingBottom={2} size="sm" color="black" >{latest_recovered.toLocaleString()}</Heading>
+              </HStack>
+              <HStack space={2} alignItems="center" paddingBottom={2} >
+                <Heading paddingBottom={2} size="sm" color="black" >Death cases:</Heading>
+                <Heading paddingBottom={2} size="sm" color="black" >{latest_deaths.toLocaleString()}</Heading>
+              </HStack>
+            </ScrollView>
           </Box>
+
         </Box>
       )}
       {loading && (
@@ -160,7 +163,7 @@ const CountryScreen = ({ route, navigation }) => {
           </HStack>
         </View>
       )}
-           </ScrollView>
+
     </SafeAreaView>
   );
 }
