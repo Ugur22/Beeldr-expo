@@ -1,6 +1,6 @@
 import React from 'react';
 import { VictoryGroup, VictoryVoronoiContainer, VictoryArea, VictoryLabel } from "victory-native";
-import { View } from "react-native";
+import { View,Platform } from "react-native";
 
 const LineChart = (props) => {
 
@@ -31,8 +31,8 @@ const LineChart = (props) => {
 };
 
 const CustomTooltip = () => {
-    return (<VictoryLabel constrainToVisibleArea dy={-20} dx={-80} style={[{ fill: "white", fontSize: 16 }]}
-        backgroundPadding={[3, { left: 20, right: 20 }, { left: 20 }]} backgroundStyle={[{ fill: "white", opacity: 0.2 },]}
+    return (<VictoryLabel dy={-20} dx={-80} style={[{ fill: "black", fontSize: 16 },]} lineHeight={2}
+		backgroundPadding={Platform.OS === 'android' ? 15: 5} backgroundStyle={[{ fill: "white" },]}
     />)
 };
 

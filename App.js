@@ -1,8 +1,6 @@
 import React from "react";
-import {
-  NativeBaseProvider,
-  extendTheme,
-} from "native-base";
+import { NativeBaseProvider,extendTheme } from "native-base";
+import { Platform } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen'
@@ -24,16 +22,16 @@ const theme = extendTheme({
   fontConfig: {
     Courier: {
       400: {
-        normal: 'Courier New',
+        normal:Platform.OS === 'android' ?  'Roboto' : 'Courier New',
       },
     },
   },
 
   // Make sure values below matches any of the keys in `fontConfig`
   fonts: {
-    heading: 'Courier',
-    body: 'Courier',
-    mono: 'Courier',
+    heading: Platform.OS === 'android' ?  'Roboto' : 'Courier',
+    body: Platform.OS === 'android' ?  'Roboto' : 'Courier',
+    mono: Platform.OS === 'android' ?  'Roboto' : 'Courier',
   },
 });
 
