@@ -3,7 +3,7 @@ import { SafeAreaView, View } from "react-native";
 import React, { useState, useEffect } from 'react';
 import CountryCard from '../components/CountryCard';
 
-const CountriesScreen = ({ navigation }) => {
+const CountriesScreen = () => {
 
   let [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
