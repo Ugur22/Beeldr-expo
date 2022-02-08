@@ -1,21 +1,31 @@
-import { Text, Center, VStack } from "native-base";
+import { Text, Box, VStack, Link } from "native-base";
 import React from "react";
-import CustomButton from "../components/CustomButton";
+import CovidSocial from '../assets/img/covidMedical.svg';
 
 const AboutScreen = () => {
 
   return (
-    <Center h="100%" w="100%"
+    <Box pt={5} px={6}
       _dark={{ bg: "DeepBlue" }}
       _light={{ bg: "white" }}
-      px={4}
       flex={1}
     >
       <VStack space={5} alignItems="center">
-        <Text>About App</Text>
+        <Text fontSize="3xl" >About CovidTracker</Text>
+        <CovidSocial height={300} width={300} />
+        <Text fontSize="xl">
+          To display the historical data of each country the
+          {" "}
+          <Link mt={-1} href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" isExternal _text={{
+            color: "blue.400", fontSize: "xl",
+          }}  >
+            COVID19API
+          </Link>is used.
+        </Text>
       </VStack>
-    </Center>
+    </Box>
   );
 }
 
 export default AboutScreen;
+
