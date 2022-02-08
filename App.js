@@ -1,5 +1,5 @@
 import React from "react";
-import { NativeBaseProvider,extendTheme } from "native-base";
+import { NativeBaseProvider, extendTheme } from "native-base";
 import { Platform } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -14,24 +14,24 @@ const theme = extendTheme({
   initialColorMode: "dark",
   colors: {
     // Redefinig only one shade, rest of the color will remain same.
-      covidRed: '#FF4757',
-      covidOrange: '#EE5A24',
-      covidGreen: '#7BED9F',
-      DeepBlue: '#4B4F72',
+    covidRed: '#FF4757',
+    covidOrange: '#EE5A24',
+    covidGreen: '#7BED9F',
+    DeepBlue: '#4B4F72',
   },
   fontConfig: {
     Courier: {
       400: {
-        normal:Platform.OS === 'android' ?  'Roboto' : 'Courier New',
+        normal: Platform.OS === 'android' ? 'Roboto' : 'Courier New',
       },
     },
   },
 
   // Make sure values below matches any of the keys in `fontConfig`
   fonts: {
-    heading: Platform.OS === 'android' ?  'Roboto' : 'Courier',
-    body: Platform.OS === 'android' ?  'Roboto' : 'Courier',
-    mono: Platform.OS === 'android' ?  'Roboto' : 'Courier',
+    heading: Platform.OS === 'android' ? 'Roboto' : 'Courier',
+    body: Platform.OS === 'android' ? 'Roboto' : 'Courier',
+    mono: Platform.OS === 'android' ? 'Roboto' : 'Courier',
   },
 });
 
@@ -46,7 +46,7 @@ export default function App() {
           <Stack.Screen name="Countries" component={CountriesScreen} />
           <Stack.Screen name="About" component={AboutScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
-          <Stack.Screen name="Country"   options={({ route }) => ({ title: route.params.countryName })}component={CountryScreen} />
+          <Stack.Screen name="Country" options={({ route }) => ({ title: route.params.countryName })} component={CountryScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
