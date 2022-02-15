@@ -22,7 +22,7 @@ const CountryCard = (props) => {
                             <Text color="white" _dark={{ color: "DeepBlue" }}>Cases: {props.item.TotalConfirmed.toLocaleString()}</Text>
                         </VStack>
                         <Spacer />
-                        <Box  _dark={{ borderColor: "gray.600", bg:"DeepBlue" }} bg="white" borderRadius="100" justifyContent="center" p="1" >
+                        <Box _dark={{ borderColor: "gray.600", bg:"DeepBlue" }} bg="white" borderRadius="100" justifyContent="center" p="1" >
                             <ArrowForwardIcon size="md" color="DeepBlue" _dark={{ color: "white", }} alignSelf="center" />
                         </Box>
                     </HStack>

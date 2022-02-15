@@ -8,6 +8,7 @@ import CountriesScreen from "./screens/CountriesScreen";
 import AboutScreen from "./screens/AboutScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import CountryScreen from "./screens/CountryScreen";
+import { useFonts } from 'expo-font';
 
 const theme = extendTheme({
   useSystemColorMode: false,
@@ -20,24 +21,35 @@ const theme = extendTheme({
     DeepBlue: '#4B4F72',
   },
   fontConfig: {
-    Courier: {
-      400: {
-        normal: Platform.OS === 'android' ? 'Roboto' : 'Courier New',
-      },
+    customfont: {
+        normal: Platform.OS === 'android' ? 'Roboto' : 'PlayfairDisplay',
     },
   },
 
   // Make sure values below matches any of the keys in `fontConfig`
   fonts: {
-    heading: Platform.OS === 'android' ? 'Roboto' : 'Courier',
-    body: Platform.OS === 'android' ? 'Roboto' : 'Courier',
-    mono: Platform.OS === 'android' ? 'Roboto' : 'Courier',
+    heading: Platform.OS === 'android' ? 'Roboto' : 'PlayfairDisplay-Bold',
+    body: Platform.OS === 'android' ? 'Roboto' : 'PlayfairDisplay',
+    mono: Platform.OS === 'android' ? 'Roboto' : 'PlayfairDisplay',
   },
 });
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+  const [loaded] = useFonts({
+    PlayfairDisplay: require('./assets/fonts/PlayfairDisplay-Regular.ttf'),
+    'PlayfairDisplay-Bold': {
+      uri: require('./assets/fonts/PlayfairDisplay-Bold.ttf'),
+    },
+  });
+  
+  
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <NativeBaseProvider theme={theme}>
       <NavigationContainer>

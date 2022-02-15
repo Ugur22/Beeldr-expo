@@ -18,12 +18,12 @@ const CountriesScreen = () => {
     fetch(`https://api.covid19api.com/summary`)
       .then(response => response.json())
       .then((res) => {
-        setData(filterHighestCases(res.Countries));
+        setData(sortHighestCases(res.Countries));
         setLoading(false);
       });
   }
 
-  const filterHighestCases = (countries) => {
+  const sortHighestCases = (countries) => {
     return countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
   };
 

@@ -14,13 +14,13 @@ const AboutScreen = () => {
         <Text fontSize="3xl" >About CovidTracker</Text>
         <CovidSocial height={300} width={300} />
         <Text fontSize="xl">
-          To display the historical data of each country the
+          This app shows the historical data of each country using the
           {" "}
           <Link mt={-1} href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" isExternal _text={{
             color: "blue.400", fontSize: "xl",
           }}  >
             COVID19API
-          </Link>is used.
+          </Link>API.
         </Text>
       </VStack>
     </Box>
