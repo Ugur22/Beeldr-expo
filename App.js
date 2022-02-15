@@ -1,5 +1,5 @@
 import React from "react";
-import { NativeBaseProvider, extendTheme } from "native-base";
+import { NativeBaseProvider, extendTheme,Heading } from "native-base";
 import { Platform } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -54,15 +54,14 @@ export default function App() {
     <NativeBaseProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="CovidTracker" component={HomeScreen} />
-          <Stack.Screen name="Countries" component={CountriesScreen} />
-          <Stack.Screen name="About" component={AboutScreen} />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
-          <Stack.Screen name="Country" options={({ route }) => ({ title: route.params.countryName })} component={CountryScreen} />
+          <Stack.Screen name="CovidTracker" options={() => ({ headerTitleStyle: {fontFamily: 'PlayfairDisplay',} })}  component={HomeScreen} />
+          <Stack.Screen name="Countries" options={() => ({ headerTitleStyle: {fontFamily: 'PlayfairDisplay',} })} component={CountriesScreen} />
+          <Stack.Screen name="About" options={() => ({ headerTitleStyle: {fontFamily: 'PlayfairDisplay',} })} component={AboutScreen} />
+          <Stack.Screen name="Settings" options={() => ({ headerTitleStyle: {fontFamily: 'PlayfairDisplay',} })} component={SettingsScreen} />
+          <Stack.Screen name="Country" options={({route}) => ({title: route.params.countryName, headerTitleStyle: { fontFamily: 'PlayfairDisplay',}})} component={CountryScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
   );
 }
-
 
