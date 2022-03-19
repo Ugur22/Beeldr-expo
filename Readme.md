@@ -2,7 +2,13 @@
 # React Native Covid-tracker app
 This app is a made with React Native and Expo to show covid cases per country.
 
-![Logo](https://github.com/Ugur22/Beeldr-expo/blob/main/assets/img/covid.png?raw=true)
+| Home             |  About |
+:-------------------------:|:-------------------------:
+![](https://raw.githubusercontent.com/Ugur22/Covid-tracker/main/assets/img/beeldr-expo.jpg)| ![](https://raw.githubusercontent.com/Ugur22/Covid-tracker/main/assets/img/Screenshot_20220310-203436.jpg)
+
+| Countries screen             |  Country screen |
+:-------------------------:|:-------------------------:
+![](https://raw.githubusercontent.com/Ugur22/Covid-tracker/main/assets/img/Screenshot_20220310-203402.jpg)| ![](https://raw.githubusercontent.com/Ugur22/Covid-tracker/main/assets/img/Screenshot_20220310-203417.jpg)
 
 ## Installation 
 
