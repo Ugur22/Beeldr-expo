@@ -20,7 +20,7 @@ npm install --global expo-cli
 ### Install beeldr-expo with npm
 
 ``` 
-  cd beeldr-expo
+  cd Covid-tracker
   npm install
 ```
 
