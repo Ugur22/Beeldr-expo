@@ -17,7 +17,7 @@ This app is a made with React Native and Expo to show covid cases per country.
 npm install --global expo-cli
 ```
 
-### Install beeldr-expo with npm
+### Install Covid-tracker with npm
 
 ``` 
   cd Covid-tracker
